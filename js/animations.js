@@ -1,10 +1,24 @@
 $(document).ready(function() {
   $('.tweet-compose').on('click', function() {
+    $('.tweet-compose').css('height', '5em')
     $('#tweet-controls').show();
   });
 
-  $('.tweet-compose').keypress(function() {
-    $('#char-count').text(139 - $(this).val().length);
+  $('.tweet-compose').keyup(function(e) {
+    var count = 0
+
+    if (e.keyCode === 8 && $(this).val().length > 0) {
+      count--;
+      $('#char-count').text(139 - $(this).val().length - count);
+    }
+    else {
+      count++;
+      $('#char-count').text(139 - $(this).val().length + count);
+    }
+
+
+
+
 
     if ($(this).val().length - 1 >= 139) {
       $('#tweet-submit').prop('disabled', true);
@@ -19,7 +33,13 @@ $(document).ready(function() {
     }
 
     if($(this).val().length < 129) {
-      $('#char-count').css('color', 'gray');
+      $('#char-count').css('color', '#999');
     }
+  });
+
+  $('.tweet').hover(function() {
+    $(this).find('.tweet-actions').show() },
+    function() {
+      $(this).find('.tweet-actions').hide()
   });
 });
