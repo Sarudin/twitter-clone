@@ -5,9 +5,9 @@ $(document).ready(function() {
   });
 
   $('.tweet-compose').keyup(function(e) {
-    var count = 0
+    var count = 0;
 
-    if (e.keyCode === 8 && $(this).val().length > 0) {
+    if (e.keyCode === 8) {
       count--;
       $('#char-count').text(139 - $(this).val().length - count);
     }
@@ -15,10 +15,6 @@ $(document).ready(function() {
       count++;
       $('#char-count').text(139 - $(this).val().length + count);
     }
-
-
-
-
 
     if ($(this).val().length - 1 >= 139) {
       $('#tweet-submit').prop('disabled', true);
@@ -42,4 +38,10 @@ $(document).ready(function() {
     function() {
       $(this).find('.tweet-actions').hide()
   });
+
+  $('#tweet-submit').on('click', function() {
+    var x = $('#tweet-content .tweet-compose').clone().appendTo('#profile-summary');
+
+    $('#profile-summary').clone().prependTo('#stream');
+  })
 });
